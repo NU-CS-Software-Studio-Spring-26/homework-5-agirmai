@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: %i[ show edit update destroy ]
+  before_action :set_todo, only: %i[ show edit update destroy toggle_priority ]
   before_action :ensure_owner_token
 
   # GET /todos or /todos.json
@@ -56,6 +56,16 @@ class TodosController < ApplicationController
     respond_to do |format|
       format.html { redirect_to todos_path, notice: "Todo was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
+    end
+  end
+
+  def toggle_priority
+    @todo.update!(high_priority: !@todo.high_priority)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to todos_path, notice: "Todo priority was updated.", status: :see_other }
+      format.json { render :show, status: :ok, location: @todo }
     end
   end
 
