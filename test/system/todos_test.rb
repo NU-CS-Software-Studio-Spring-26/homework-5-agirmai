@@ -38,4 +38,14 @@ class TodosTest < ApplicationSystemTestCase
 
     assert_text "Todo was successfully destroyed"
   end
+
+  test "should toggle high priority from index via turbo" do
+    visit todos_url
+
+    within "##{dom_id(@todo)}" do
+      assert_selector "[data-high-priority='false']", text: "!"
+      click_on "Mark high priority"
+      assert_selector "[data-high-priority='true']", text: "!"
+    end
+  end
 end
