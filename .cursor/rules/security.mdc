@@ -1,0 +1,8 @@
+---
+alwaysApply: true
+---
+Never write, log, or echo secrets, API keys, or production credentials
+No eval on user input
+No html_safe / raw on untrusted input
+Use parameterized queries, never string-interpolate SQL
+Do not disable CSRF, mass assignment protection, or Devise's session checks

@@ -1,5 +1,6 @@
 class TodosController < ApplicationController
   before_action :set_todo, only: %i[ show edit update destroy ]
+  before_action :ensure_owner_token
 
   # GET /todos or /todos.json
   def index
@@ -22,6 +23,7 @@ class TodosController < ApplicationController
   # POST /todos or /todos.json
   def create
     @todo = Todo.new(todo_params)
+    @todo.owner_token = session[:owner_token]
 
     respond_to do |format|
       if @todo.save
@@ -70,8 +72,13 @@ class TodosController < ApplicationController
       @todo = Todo.find(params.expect(:id))
     end
 
+    def ensure_owner_token
+      session[:owner_token] ||= SecureRandom.hex(16)
+    end
+
     # Only allow a list of trusted parameters through.
     def todo_params
       params.expect(todo: [ :description ])
     end
+
 end

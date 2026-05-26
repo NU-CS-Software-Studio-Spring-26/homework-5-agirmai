@@ -6,5 +6,7 @@
   <%= link_to "Edit this todo", edit_todo_path(@todo) %> |
   <%= link_to "Back to todos", todos_path %>
 
-  <%= button_to "Destroy this todo", @todo, method: :delete %>
+  <% if @todo.owner_token.present? && @todo.owner_token == session[:owner_token] %>
+    <%= button_to "Destroy this todo", @todo, method: :delete %>
+  <% end %>
 </div>
