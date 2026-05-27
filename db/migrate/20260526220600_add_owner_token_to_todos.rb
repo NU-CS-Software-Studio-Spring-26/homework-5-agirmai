@@ -4,4 +4,3 @@ class AddOwnerTokenToTodos < ActiveRecord::Migration[8.0]
     add_index :todos, :owner_token
   end
 end
-

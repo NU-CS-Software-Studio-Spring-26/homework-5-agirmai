@@ -90,5 +90,4 @@ class TodosController < ApplicationController
     def todo_params
       params.expect(todo: [ :description ])
     end
-
 end
