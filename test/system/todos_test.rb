@@ -33,9 +33,24 @@ class TodosTest < ApplicationSystemTestCase
   end
 
   test "should destroy Todo" do
-    visit todo_url(@todo)
+    visit todos_url
+    click_on "New todo"
+
+    fill_in "Description", with: "Todo to delete"
+    click_on "Create Todo"
+
     click_on "Destroy this todo", match: :first
 
     assert_text "Todo was successfully destroyed"
+  end
+
+  test "should toggle high priority from index via turbo" do
+    visit todos_url
+
+    within "##{dom_id(@todo)}" do
+      assert_selector "[data-high-priority='false']", text: "!"
+      click_on "Mark high priority"
+      assert_selector "[data-high-priority='true']", text: "!"
+    end
   end
 end

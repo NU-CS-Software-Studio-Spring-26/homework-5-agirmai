@@ -1,5 +1,6 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: %i[ show edit update destroy ]
+  before_action :set_todo, only: %i[ show edit update destroy toggle_priority ]
+  before_action :ensure_owner_token
 
   # GET /todos or /todos.json
   def index
@@ -22,6 +23,7 @@ class TodosController < ApplicationController
   # POST /todos or /todos.json
   def create
     @todo = Todo.new(todo_params)
+    @todo.owner_token = session[:owner_token]
 
     respond_to do |format|
       if @todo.save
@@ -57,6 +59,16 @@ class TodosController < ApplicationController
     end
   end
 
+  def toggle_priority
+    @todo.update!(high_priority: !@todo.high_priority)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to todos_path, notice: "Todo priority was updated.", status: :see_other }
+      format.json { render :show, status: :ok, location: @todo }
+    end
+  end
+
   def hello
     respond_to do |format|
       format.html { render :hello }
@@ -68,6 +80,10 @@ class TodosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_todo
       @todo = Todo.find(params.expect(:id))
+    end
+
+    def ensure_owner_token
+      session[:owner_token] ||= SecureRandom.hex(16)
     end
 
     # Only allow a list of trusted parameters through.

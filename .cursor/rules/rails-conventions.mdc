@@ -1,0 +1,9 @@
+---
+description: Rails 8 conventions for the sample todo app
+alwaysApply: true
+---
+Todo app only — no foreign models/migrations.
+bin/rails generate + reversible migrations; don’t touch schema.rb.
+params.expect for mass assignment; respond_to HTML + JSON (jbuilder).
+Hotwire/Stimulus (and Turbo Streams when needed), not inline JS or heavy custom scripts.
+Minitest + bin/rubocop / CI commands; no new gems or committed secrets.

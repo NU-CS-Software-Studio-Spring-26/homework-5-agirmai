@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Local gem install path (often used when WSL cannot write to system gems).
+/vendor/bundle
+
 # Ignore all environment files.
 /.env*
 

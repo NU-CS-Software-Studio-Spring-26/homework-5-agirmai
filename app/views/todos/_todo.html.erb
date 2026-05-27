@@ -4,4 +4,21 @@
     <%= todo.description %>
   </p>
 
+  <div>
+    <span
+      id="<%= dom_id(todo, :priority_indicator) %>"
+      data-high-priority="<%= todo.high_priority %>"
+      style="<%= todo.high_priority ? 'color: red; font-weight: bold;' : 'color: inherit;' %>"
+    >
+      !
+    </span>
+
+    <%= button_to(
+          todo.high_priority ? "Unmark high priority" : "Mark high priority",
+          toggle_priority_todo_path(todo),
+          method: :patch,
+          form: { data: { turbo_stream: true } }
+        ) %>
+  </div>
+
 </div>
