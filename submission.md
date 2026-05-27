@@ -3,6 +3,10 @@
 [link to rails-conventions.mdc](.cursor/rules/rails-conventions.mdc)
 [link to security.mdc](.cursor/rules/security.mdc)
 
+
+https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-agirmai
+
+
 Part 3
 command for windows is Shift + Tab
 
@@ -282,3 +286,14 @@ Task: Add support to enter and save due_date when creating/updating a todo.
 Expected vs actual: Expected: user can set a due date and it persists. Actual: due_date exists in DB but there’s no form field and it’s not permitted in todo_params, so it can’t be saved.
 Constraints: Don’t add gems. Follow existing Rails patterns (params.expect, ERB forms, Minitest).
 Done when: bin/rails db:test:prepare test test:system passes, and at least one test proves due_date is persisted on create or update.
+
+part 4
+Turbo Streams are basically a way to change the page DOM without reloading the actual page, that's where the "Turbo" comes from. It lets you see changes fast and have the page respond to changes quickly.
+
+I verified the seven actions with the Turbo Streams handbook, and it looked the same. Cursor didn't explain the specific variables and exact function, but it was saying the same description.
+
+https://turbo.hotwired.dev/handbook/streams
+
+
+  https://github.com/NU-CS-Software-Studio-Spring-26/homework-5-agirmai/pull/1
+
